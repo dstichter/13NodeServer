@@ -8,16 +8,16 @@ var handleRequest = function (req, res) {
   var url_parts = url.parse(req.url);
   switch (url_parts.pathname) {
     case '/':
-      display_root(req, res);
+      display(req, res, "/");
       break;
     case '/favfood':
-      display_favfood(req, res);
+      display(req, res,'/favfood');
       break;
     case '/favmovie':
-      display_favmovie(req, res);
+      display(req, res,'/favmovie');
       break;
     case '/favframeworks':
-      display_favframeworks(req, res);
+      display(req, res,'/favframeworks');
       break;
     default:
       display_404(req, res);
@@ -25,40 +25,8 @@ var handleRequest = function (req, res) {
   }
 
 }
-
-var display_root = function(req, res) {
-  fs.readFile('./home.html', function (err, html) {
-    if (err) {
-        throw err; 
-    }
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(html);
-  }); 
-
-}
-
-var display_favfood = function(req, res) {
-  fs.readFile('./favfood.html', function (err, html) {
-    if (err) {
-        throw err; 
-    }
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(html);
-  });
-
-}
-var display_favmovie = function(req, res) {
-  fs.readFile('./favmovie.html', function (err, html) {
-    if (err) {
-        throw err; 
-    }
-  res.writeHead(200, {'Content-Type': 'text/html'});
-  res.end(html);
-  });
-
-}
-var display_favframeworks = function(req, res) {
-  fs.readFile('./favframeworks.html', function (err, html) {
+var display = function(req, res, url) {
+  fs.readFile('.'+url+".html", function (err, html) {
     if (err) {
         throw err; 
     }
